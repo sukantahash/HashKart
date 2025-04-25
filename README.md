@@ -1,10 +1,77 @@
 # HashKart
 HashKart application is one stop destination for all kinds of shopping needs for the customers. The application enables the users to view all the products items in the cart, to add the required items to the cart, to make the payments successfully and to apply the discount coupons 
 
+# User Service API
+
+User Service API for user registration and login
+
+## Endpoints
+
+### Register User
+
+**URL:** `/register`  
+**Method:** `POST`  
+**Description:** Register new user
+
+**Request Body:**
+```json
+{
+  "username": "newhasher",
+  "email": "newhasher@testmail.com",
+  "password": "1234"
+}
+
+```
+
+### Register User
+
+**URL:** `/register`  
+**Method:** `POST`  
+**Description:** Register new user
+
+**Request Body:**
+```json
+{
+  "username": "newhasher",
+  "email": "newhasher@testmail.com",
+  "password": "1234"
+}
+
+```
+
+**Curl**
+
+```bash
+curl -X POST http://localhost:5001/register -H "Content-Type: application/json" -d '{"username":"newhasher", "email":"newhasher@testmail.com", "password":"1234"}'
+
+```
+
+
+### Login User
+
+**URL:** `/login`  
+**Method:** `POST`  
+**Description:** User login
+
+**Request Body:**
+```json
+{
+  "username": "newhasher",
+  "password": "1234"
+}
+
+```
+
+**Curl**
+
+```bash
+curl -X POST http://localhost:5000/login -H "Content-Type: application/json" -d '{"username":"newhasher", "password":"1234"}'
+
+```
 
 # Product Service API
 
-The Product Service API allows you to manage products in a catalog. You can create, retrieve, update, and delete products, as well as filter and sort them based on various criteria.
+The Product Service API allows you to manage products in a catalog. You can create, retrieve products, as well as filter and sort them based on various criteria.
 
 ## Endpoints
 

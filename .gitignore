@@ -138,6 +138,7 @@ venv.bak/
 .product-venv
 .order-venv
 .payments-venv
+.users-venv
 
 # Spyder project settings
 .spyderproject
