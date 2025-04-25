@@ -14,6 +14,7 @@ class CheckoutResource(Resource):
     @jwt_required()
     def post(self):
         try:
+            db.session.close_all()
             data = request.get_json()
             user_id = get_jwt_identity()
             cart_items = CartItem.query.filter_by(user_id=user_id).all()
@@ -21,7 +22,7 @@ class CheckoutResource(Resource):
             if not cart_items:
                 return {"message": "Cart is empty"}, 400
             
-            with db.session.begin():
+            with db.session.begin_nested():
                 new_order = Order(user_id=user_id, status='pending')
                 db.session.add(new_order)
                 db.session.flush()  # Ensure new_order.id is available
@@ -38,10 +39,12 @@ class CheckoutResource(Resource):
             # Here you would redirect to the payment service
             # For now, we simulate the redirection with a placeholder response
             payment_service_url = f"http://payment-service/checkout?order_id={new_order.id}"
-            return jsonify({"message": "Redirect to payment service", "payment_url": payment_service_url}), 200
+            return {"message": "Redirect to payment service", "payment_url": payment_service_url}, 200
         except ValidationError as err:
             db.session.rollback()
             return {"errors": err.messages}, 400
         except Exception as e:
             db.session.rollback()
             return {"error": str(e)}, 500
+        finally:
+            db.session.close_all()

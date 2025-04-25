@@ -20,8 +20,8 @@ def create_app():
     from app.resources.cart_resource import CartResource, CartGetResource
     from app.resources.checkout_resource import CheckoutResource
 
-    api.add_resource(OrderListCreateResource, '/orders')
     api.add_resource(OrderResource, '/orders/<int:order_id>')
+    api.add_resource(OrderListCreateResource, '/orders')
     api.add_resource(CartResource, '/cart')
     api.add_resource(CartGetResource, '/cart', '/cart/<int:user_id>')
     api.add_resource(CheckoutResource, '/checkout')
