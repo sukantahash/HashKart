@@ -45,6 +45,7 @@ class CreatePayment(Resource):
         except ValidationError as err:
             return {"errors": err.messages}, 400
         except Exception as e:
+            print(str(e))
             return {"errors": str(e)}, 500
 
 
@@ -75,6 +76,7 @@ class ConfirmPayment(Resource):
             return {"message": "Payment confirmed"}, 200
         
         except Exception as e:
+            print(str(e))
             return {"errors": str(e)}, 500
         
 

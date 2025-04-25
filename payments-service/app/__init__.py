@@ -19,9 +19,9 @@ def create_app():
     # Add resource routes
     from app.resources.payments_resource import CreatePayment, ConfirmPayment, PaymentsResource
     print("Adding resources")
-    api.add_resource(PaymentsResource, '/api/payments')
-    api.add_resource(CreatePayment, '/api/payments/create')
-    api.add_resource(ConfirmPayment, '/api/payments/confirm')
+    api.add_resource(PaymentsResource, '/payments')
+    api.add_resource(CreatePayment, '/payments/create')
+    api.add_resource(ConfirmPayment, '/payments/confirm')
 
     with app.app_context():
         db.create_all()

@@ -140,6 +140,16 @@ venv.bak/
 .payments-venv
 .users-venv
 
+# local DB
+./DB
+DB
+.DB
+*.db
+.product-service/products.db
+.order-service/orders.db
+.payments-service/payments.db
+.users-service/users.db
+
 # Spyder project settings
 .spyderproject
 .spyproject

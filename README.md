@@ -23,22 +23,6 @@ User Service API for user registration and login
 
 ```
 
-### Register User
-
-**URL:** `/register`  
-**Method:** `POST`  
-**Description:** Register new user
-
-**Request Body:**
-```json
-{
-  "username": "newhasher",
-  "email": "newhasher@testmail.com",
-  "password": "1234"
-}
-
-```
-
 **Curl**
 
 ```bash
@@ -67,6 +51,14 @@ curl -X POST http://localhost:5001/register -H "Content-Type: application/json" 
 ```bash
 curl -X POST http://localhost:5000/login -H "Content-Type: application/json" -d '{"username":"newhasher", "password":"1234"}'
 
+```
+
+**Response Example**
+
+```json
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0NTU5ODIyNCwianRpIjoiYzA3NDc0N2UtOTJjZi00YTUyLWE3YjQtMTY5MzZlYjkzYWNkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDU1OTgyMjQsImNzcmYiOiI5NTA1ZGU3NC1jZjI3LTQ5MTctODQ3ZS02YWRjZTQ4ZTZkOWYiLCJleHAiOjE3NDU1OTkxMjR9.mSvdu6G22XzZjTQht4ZmZUAj6JTWUJhRqk5PKd6cXEc"
+}
 ```
 
 # Product Service API
@@ -100,11 +92,11 @@ The Product Service API allows you to manage products in a catalog. You can crea
 ```bash
 curl -X POST http://localhost:5002/products \
      -H "Content-Type: application/json" \
-     -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+     -H "Authorization: Bearer JWT_TOKEN" \
      -d '{
-           "name": "Test Product",
+           "name": "Test_Product_1",
            "category": "Electronics",
-           "price": 99.99,
+           "price": 100,
            "quantity": 10,
            "rating": 4.5
          }'
@@ -122,7 +114,7 @@ curl -X POST http://localhost:5002/products \
 **Example `curl` Command:**
 ```bash
 curl -X GET http://localhost:5002/products \
-     -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+     -H "Authorization: Bearer JWT_TOKEN"
 ```
 ### Get Product by ID
 
@@ -137,7 +129,7 @@ curl -X GET http://localhost:5002/products \
 **Example `curl` Command:**
 ```bash
 curl -X GET http://localhost:5000/products/{id} \
-     -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+     -H "Authorization: Bearer JWT_TOKEN"
 ```
 ### Filter Products by Category
 
@@ -151,7 +143,7 @@ curl -X GET http://localhost:5000/products/{id} \
 **Example `curl` Command:**
 ```bash
 curl -X GET "http://localhost:5000/products?category={category}" \
-     -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+     -H "Authorization: Bearer JWT_TOKEN"
 ```
 
 ### Sort Products by Price
@@ -166,5 +158,8 @@ curl -X GET "http://localhost:5000/products?category={category}" \
 **Example `curl` Command:**
 ```bash
 curl -X GET "http://localhost:5000/products?sort_by=price&order={asc|desc}" \
-     -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+     -H "Authorization: Bearer JWT_TOKEN"
+
+
+
 

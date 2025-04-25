@@ -13,4 +13,6 @@ class ProductSchema(Schema):
     created_at = fields.DateTime(dump_only=True)
 
 product_schema = ProductSchema()
+product_update_schema =ProductSchema(partial=True)
 products_schema = ProductSchema(many=True)
+

@@ -8,6 +8,8 @@ class Order(db.Model):
     order_date = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     # one to many relationship with OrderItem
     order_items = db.relationship('OrderItem', backref='order', lazy=True)
+    order_total = db.Column(db.Float, default=0)
+    payment_id = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
 

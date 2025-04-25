@@ -3,8 +3,9 @@ from flask_restful import Resource
 from flask_jwt_extended import jwt_required
 from marshmallow import ValidationError
 from app.models.products import Product
-from app.schemas.products_schema import product_schema, products_schema
+from app.schemas.products_schema import product_schema, products_schema, product_update_schema
 from app import db
+from werkzeug.exceptions import NotFound
 
 class ProductList(Resource):
     @jwt_required()
@@ -49,7 +50,23 @@ class ProductDetail(Resource):
     @jwt_required()
     def get(self, product_id):
         try:
-            product = Product.query.get_or_404(product_id)
+            product = Product.query.filter_by(id=product_id).first()
+            if not product:
+                return {"errors": f"Product Not Found for product_id: {product_id}"}, 404
             return product_schema.dump(product), 200
         except Exception as e:
-            return {"message": str(e)}, 500
+            return {"errors": str(e)}, 500
+
+    @jwt_required()
+    def put(self, product_id):
+        try:
+            product = Product.query.filter_by(id=product_id).first()
+            if not product:
+                return {"errors": f"Product Not Found for product_id: {product_id}"}, 404
+            update_data = product_update_schema.load(request.get_json(), partial=True)
+            for key, value in update_data.items():
+                setattr(product, key, value)
+            db.session.commit()
+            return product_schema.dump(product), 200
+        except Exception as e:
+            return {"errors": str(e)}, 500

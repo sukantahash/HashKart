@@ -60,7 +60,9 @@ class OrderResource(Resource):
     @jwt_required()
     def get(self, order_id):
         try:
-            order = Order.query.get_or_404(order_id)
+            order = Order.query.filter_by(id=order_id).first()
+            if not order:
+                return {"error": "Order Not Found"}, 404
             return order_schema.dump(order), 200
         except Exception as e:
             return {"error": str(e)}, 400
