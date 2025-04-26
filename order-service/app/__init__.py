@@ -15,16 +15,19 @@ def create_app():
     jwt.init_app(app)
     api = Api(app)
 
+    app.url_map.strict_slashes = False
+
     # add resources
     from app.resources.order_resource import OrderResource, OrderListCreateResource, OrderSuccess
     from app.resources.cart_resource import CartResource
     from app.resources.checkout_resource import CheckoutResource
 
+    
     api.add_resource(OrderResource, '/orders/<int:order_id>')
-    api.add_resource(OrderListCreateResource, '/orders')
-    api.add_resource(CartResource, '/cart')
-    api.add_resource(CheckoutResource, '/checkout')
+    api.add_resource(CartResource, '/orders/cart')
+    api.add_resource(CheckoutResource, '/orders/checkout')
     api.add_resource(OrderSuccess, '/orders/order-success')
+    api.add_resource(OrderListCreateResource, '/orders/', '/orders')
 
     with app.app_context():
         db.create_all()

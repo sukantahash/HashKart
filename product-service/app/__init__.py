@@ -15,10 +15,12 @@ def create_app():
     jwt.init_app(app)
     
     api = Api(app)
+
+    app.url_map.strict_slashes = False
     
     # Add resource routes
     from app.resources.product import ProductList, ProductDetail
-    api.add_resource(ProductList, '/products')
+    api.add_resource(ProductList, '/products/', '/products')
     api.add_resource(ProductDetail, '/products/<int:product_id>')
 
     with app.app_context():

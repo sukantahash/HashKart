@@ -18,6 +18,8 @@ class OrderListCreateResource(Resource):
     def get(self):
         try:
             orders = Order.query.all()
+            if not orders:
+                return [], 200
             orders_data = order_schema.dump(orders, many=True)
             for order in orders_data:
                 order_items = OrderItem.query.filter_by(order_id=order['id']).all()

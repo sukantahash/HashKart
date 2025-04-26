@@ -27,6 +27,8 @@ class ProductList(Resource):
                     query = query.order_by(getattr(Product, sort_by))
             
             products = query.all()
+            if not products:
+                return [], 200
             
             return products_schema.dump(products), 200
         except Exception as e:

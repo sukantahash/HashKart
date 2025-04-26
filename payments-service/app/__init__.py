@@ -15,11 +15,12 @@ def create_app():
     jwt.init_app(app)
     
     api = Api(app)
+    app.url_map.strict_slashes = False
     
     # Add resource routes
     from app.resources.payments_resource import CreatePayment, ConfirmPayment, PaymentsResource
     print("Adding resources")
-    api.add_resource(PaymentsResource, '/payments')
+    api.add_resource(PaymentsResource, '/payments/', '/payments')
     api.add_resource(CreatePayment, '/payments/create')
     api.add_resource(ConfirmPayment, '/payments/confirm')
 
