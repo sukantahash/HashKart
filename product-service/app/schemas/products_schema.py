@@ -9,7 +9,7 @@ class ProductSchema(Schema):
     category = fields.Str(required=True, validate=validate.OneOf(CATEGORIES))
     price = fields.Float(required=True)
     rating = fields.Float(required=False, load_default=0.0, validate=validate.Range(min=0, max=5))
-    quantity = fields.Int(required=True, validate=validate.Range(min=1))
+    quantity = fields.Int(required=True, validate=validate.Range(min=0))
     created_at = fields.DateTime(dump_only=True)
 
 product_schema = ProductSchema()

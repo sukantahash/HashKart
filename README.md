@@ -160,6 +160,144 @@ curl -X GET "http://localhost:5000/products?category={category}" \
 curl -X GET "http://localhost:5000/products?sort_by=price&order={asc|desc}" \
      -H "Authorization: Bearer JWT_TOKEN"
 
+```
 
 
+# Order Service API
 
+## Endpoints
+
+###  Get All Orders
+
+- **Endpoint:** `/orders`
+- **Method:** `GET`
+- **Request Headers:**
+  - `Authorization: Bearer <token>`
+- **CURL:**
+
+  ```bash
+  curl -X GET http://127.0.0.1:5003/orders -H "Authorization: Bearer <token>"
+
+  ```
+
+
+###  Get Order By ID
+
+- **Endpoint:** `/orders/<order_id>`
+- **Method:** `GET`
+- **Request Headers:**
+  - `Authorization: Bearer <token>`
+- **CURL:**
+
+```bash
+ curl -X GET http://127.0.0.1:5003/orders/2 -H "Authorization: Bearer <token>"
+```
+
+
+###  Add to cart
+
+- **Endpoint:** `/cart`
+- **Method:** `POST`
+- **Request Headers:**
+  - `Authorization: Bearer <token>`
+- **Request Payload:**
+
+```json
+{
+  "product_id": 1,
+  "quantity": 1
+}
+
+```
+
+- **CURL:**
+```bash
+curl -X GET http://127.0.0.1:5003/orders -H "Authorization: Bearer <token>"
+```
+
+###  GET User Cart Items
+
+- **Endpoint:** `/cart`
+- **Method:** `GET`
+- **Request Headers:**
+  - `Authorization: Bearer <token>`
+
+- **CURL:**
+```bash
+curl -X GET http://127.0.0.1:5003/cart-H "Authorization: Bearer <token>"
+```
+
+###  Checkout
+
+- **Endpoint:** `/checkout`
+- **Method:** `POST`
+- **Request Headers:**
+  - `Authorization: Bearer <token>`
+- **Request Payload:** {}
+- **CURL:**
+```bash
+curl -X POST http://127.0.0.1:5003/checkout -H "Content-Type: application/json" -H "Authorization: Bearer <token>" -d '{}'
+```
+
+
+###  Order Success
+
+- **Endpoint:** `/order-success`
+- **Method:** `POST`
+- **Request Headers:**
+  - `Authorization: Bearer <token>`
+- **Request Payload:** 
+```json
+{
+  "order_id": 3
+}
+
+```
+- **CURL:**
+```bash
+curl -X POST http://127.0.0.1:5003/orders/order-success -H "Content-Type: application/json" -H "Authorization: Bearer <token>" -d '{"order_id":3}'
+```
+
+# Payments Service API
+
+## Endpoints
+
+### Create Payment
+
+- **Endpoint:** `/payments/create`
+- **Method:** `POST`
+- **Request Headers:**
+  - `Authorization: Bearer <token>`
+- **Request Payload:**
+
+ ```json
+  {
+    "order_id": 1,
+    "amount": 100
+  }
+```
+- **CURL:**
+```bash
+curl -X POST http://127.0.0.1:5004/api/payments/create -H "Content-Type: application/json" -H "Authorization: Bearer <token>" -d '{"order_id":1,"amount":100}'
+
+```
+
+### Confirm Payment
+
+- **Endpoint:** `/payments/confirm`
+- **Method:** `POST`
+- **Request Headers:**
+  - `Authorization: Bearer <token>`
+- **Request Payload:**
+
+ ```json
+{
+  "payment_id": "c4c08750-284f-4b8e-b08a-9cbd9f8089a3"
+}
+
+```
+- **CURL:**
+```bash
+curl -X POST http://127.0.0.1:5004/api/payments/confirm -H "Content-Type: application/json" -H "Authorization: Bearer <token>" -d '{"payment_id":"c4c08750-284f-4b8e-b08a-9cbd9f8089a3"}'
+
+```

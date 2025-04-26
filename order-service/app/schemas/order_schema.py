@@ -6,6 +6,7 @@ class OrderSchema(Schema):
     user_id = fields.Int(required=True)
     status = fields.Str(required=False, load_default='pending')
     order_date = fields.DateTime(dump_only=True)
+    payment_id = fields.Str(dump_only=True)
     order_items = fields.List(fields.Nested('OrderItemSchema'), required=True, validate=validate.Length(min=1))
 
     # @post_load

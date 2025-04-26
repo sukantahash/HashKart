@@ -30,12 +30,13 @@ class CartResource(Resource):
             # db.session.rollback()
             return {"error": str(e)}, 500
     
-
-class CartGetResource(Resource):
     @jwt_required()
-    def get(self, user_id):
+    def get(self):
         try:
+            user_id = int(get_jwt_identity())
             cart_items = CartItem.query.filter_by(user_id=user_id).all()
             return cart_item_schema.dump(cart_items), 200
         except Exception as e:
             return {"error": str(e)}, 500
+    
+

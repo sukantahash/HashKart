@@ -86,6 +86,7 @@ class CheckoutResource(Resource):
             else:
                 raise Exception(f"Payments API Error: {init_payment_response.reason}")
 
+            db.session.commit()
             return {
                 "order_id": new_order.id,
                 "amount": new_order.order_total,

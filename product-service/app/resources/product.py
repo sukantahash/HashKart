@@ -69,4 +69,5 @@ class ProductDetail(Resource):
             db.session.commit()
             return product_schema.dump(product), 200
         except Exception as e:
+            print(str(e))
             return {"errors": str(e)}, 500
