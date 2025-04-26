@@ -1,6 +1,22 @@
 # HashKart
 HashKart application is one stop destination for all kinds of shopping needs for the customers. The application enables the users to view all the products items in the cart, to add the required items to the cart, to make the payments successfully and to apply the discount coupons 
 
+# SetUp
+- Install Docker and Docker Compose
+- Run below steps
+
+```bash
+docker-compose build
+docker-compose up -d
+```
+
+# API GateWay
+
+API Gateway: NGIX 
+Base URL: http://localhost:8080
+
+Below Service APIs are also accessable through the api gateway url
+
 # User Service API
 
 User Service API for user registration and login
@@ -9,7 +25,7 @@ User Service API for user registration and login
 
 ### Register User
 
-**URL:** `/register`  
+**URL:** `/users/register`  
 **Method:** `POST`  
 **Description:** Register new user
 
@@ -26,14 +42,14 @@ User Service API for user registration and login
 **Curl**
 
 ```bash
-curl -X POST http://localhost:5001/register -H "Content-Type: application/json" -d '{"username":"newhasher", "email":"newhasher@testmail.com", "password":"1234"}'
+curl -X POST http://localhost:5001/users/register -H "Content-Type: application/json" -d '{"username":"newhasher", "email":"newhasher@testmail.com", "password":"1234"}'
 
 ```
 
 
 ### Login User
 
-**URL:** `/login`  
+**URL:** `/users/login`  
 **Method:** `POST`  
 **Description:** User login
 
@@ -49,7 +65,7 @@ curl -X POST http://localhost:5001/register -H "Content-Type: application/json" 
 **Curl**
 
 ```bash
-curl -X POST http://localhost:5000/login -H "Content-Type: application/json" -d '{"username":"newhasher", "password":"1234"}'
+curl -X POST http://localhost:5000/users/login -H "Content-Type: application/json" -d '{"username":"newhasher", "password":"1234"}'
 
 ```
 
@@ -196,7 +212,7 @@ curl -X GET "http://localhost:5000/products?sort_by=price&order={asc|desc}" \
 
 ###  Add to cart
 
-- **Endpoint:** `/cart`
+- **Endpoint:** `/orders/cart`
 - **Method:** `POST`
 - **Request Headers:**
   - `Authorization: Bearer <token>`
@@ -212,24 +228,24 @@ curl -X GET "http://localhost:5000/products?sort_by=price&order={asc|desc}" \
 
 - **CURL:**
 ```bash
-curl -X GET http://127.0.0.1:5003/orders -H "Authorization: Bearer <token>"
+curl -X GET http://127.0.0.1:5003/orders/cart -d '{payload}' -H "Authorization: Bearer <token>"
 ```
 
 ###  GET User Cart Items
 
-- **Endpoint:** `/cart`
+- **Endpoint:** `/orders/cart`
 - **Method:** `GET`
 - **Request Headers:**
   - `Authorization: Bearer <token>`
 
 - **CURL:**
 ```bash
-curl -X GET http://127.0.0.1:5003/cart-H "Authorization: Bearer <token>"
+curl -X GET http://127.0.0.1:5003/orders/cart-H "Authorization: Bearer <token>"
 ```
 
 ###  Checkout
 
-- **Endpoint:** `/checkout`
+- **Endpoint:** `/orders/checkout`
 - **Method:** `POST`
 - **Request Headers:**
   - `Authorization: Bearer <token>`
@@ -242,7 +258,7 @@ curl -X POST http://127.0.0.1:5003/checkout -H "Content-Type: application/json" 
 
 ###  Order Success
 
-- **Endpoint:** `/order-success`
+- **Endpoint:** `/orders/order-success`
 - **Method:** `POST`
 - **Request Headers:**
   - `Authorization: Bearer <token>`
