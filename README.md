@@ -17,6 +17,23 @@ Base URL: http://localhost:8080
 
 Below Service APIs are also accessable through the api gateway url
 
+# Architecture Diagram
+
+![](./diagrams/Hashkart_Architecture.png)
+
+# ER Diagrams
+### User Service
+![User-Service](./diagrams/users_er.png)
+
+### Products Service
+![Product-Service](./diagrams/products_er.png)
+
+### Order Service
+![Order-Service](./diagrams/orders_er.png)
+
+### Paymenrts Service
+![Payments-Service](./diagrams/payments_er.png)
+
 # User Service API
 
 User Service API for user registration and login
